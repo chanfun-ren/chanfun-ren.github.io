@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title></title>
+      <link href="2021/07/12/huan-dian-nao-hou-de-bo-ke-geng-xin/"/>
+      <url>2021/07/12/huan-dian-nao-hou-de-bo-ke-geng-xin/</url>
+      
+        <content type="html"><![CDATA[<ul><li>复制原电脑的所有文件至新电脑</li><li><code>npm install</code> 更新 node_modules</li><li>hexo g / hexo d 检验是否完成（当然前提是新电脑的git帐号已设置好）</li></ul>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>test</title>
       <link href="2021/04/29/test/"/>
       <url>2021/04/29/test/</url>
