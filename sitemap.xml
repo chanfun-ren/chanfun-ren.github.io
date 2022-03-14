@@ -2,10 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>chanfun-ren.github.io/categories/</loc>
+    <loc>http://example.org/post/first/</loc>
+    <lastmod>2022-03-14T19:23:16+08:00</lastmod>
   </url><url>
-    <loc>chanfun-ren.github.io/</loc>
+    <loc>http://example.org/</loc>
+    <lastmod>2022-03-14T19:23:16+08:00</lastmod>
   </url><url>
-    <loc>chanfun-ren.github.io/tags/</loc>
+    <loc>http://example.org/post/</loc>
+    <lastmod>2022-03-14T19:23:16+08:00</lastmod>
+  </url><url>
+    <loc>http://example.org/categories/</loc>
+  </url><url>
+    <loc>http://example.org/tags/</loc>
   </url>
 </urlset>
