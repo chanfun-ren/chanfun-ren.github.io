@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>C&#43;&#43; 默认生成的特殊函数 | My New Hugo Site</title>
+<meta name="keywords" content="" />
+<meta name="description" content="[TOC]
+C&#43;&#43; 默认生成的特殊函数 前言 再度感叹 C&#43;&#43; 历史包袱有点重，为了兼容旧代码导致细节的繁杂。
+为了撰文的方便，constructor, assignment operator, destructor 分别由 ctor, assignment, dtor 替代。
+C&#43;&#43; 11 以前 Rule of Three (Big Three) Big Three 含义：C&#43;&#43;11 前，如果手动定义了以下三个函数之一或者更多，那么应尽可能手动定义所有三个。这只是一个大家都认为比较好的约定准则，并没有被写入标准。
+ copy ctor copy assignment destructor  这三个函数之所以特殊，是因为涉及到 处理资源的生命周期，编译器认为，既然程序员显示定义了某个特殊函数，这表明这个类的资源管理有点复杂（non-trivial），这超出了编译器自动处理能力的范围，程序员理应编写涉及资源管理的其他函数。
+C&#43;&#43;11 前默认生成的函数  default ctor destructor copy ctor copy assignment  These functions are known as the special member functions, and they are what make simple user-defined types in C&#43;&#43; behave like structures do in C.">
+<meta name="author" content="">
+<link rel="canonical" href="http://chanfun.cc/post/auto_generated_func/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="http://chanfun.cc/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://chanfun.cc/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://chanfun.cc/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://chanfun.cc/apple-touch-icon.png">
+<link rel="mask-icon" href="http://chanfun.cc/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="C&#43;&#43; 默认生成的特殊函数" />
+<meta property="og:description" content="[TOC]
+C&#43;&#43; 默认生成的特殊函数 前言 再度感叹 C&#43;&#43; 历史包袱有点重，为了兼容旧代码导致细节的繁杂。
+为了撰文的方便，constructor, assignment operator, destructor 分别由 ctor, assignment, dtor 替代。
+C&#43;&#43; 11 以前 Rule of Three (Big Three) Big Three 含义：C&#43;&#43;11 前，如果手动定义了以下三个函数之一或者更多，那么应尽可能手动定义所有三个。这只是一个大家都认为比较好的约定准则，并没有被写入标准。
+ copy ctor copy assignment destructor  这三个函数之所以特殊，是因为涉及到 处理资源的生命周期，编译器认为，既然程序员显示定义了某个特殊函数，这表明这个类的资源管理有点复杂（non-trivial），这超出了编译器自动处理能力的范围，程序员理应编写涉及资源管理的其他函数。
+C&#43;&#43;11 前默认生成的函数  default ctor destructor copy ctor copy assignment  These functions are known as the special member functions, and they are what make simple user-defined types in C&#43;&#43; behave like structures do in C." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://chanfun.cc/post/auto_generated_func/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-03-16T01:37:35&#43;08:00" />
+<meta property="article:modified_time" content="2022-03-16T01:37:35&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C&#43;&#43; 默认生成的特殊函数"/>
+<meta name="twitter:description" content="[TOC]
+C&#43;&#43; 默认生成的特殊函数 前言 再度感叹 C&#43;&#43; 历史包袱有点重，为了兼容旧代码导致细节的繁杂。
+为了撰文的方便，constructor, assignment operator, destructor 分别由 ctor, assignment, dtor 替代。
+C&#43;&#43; 11 以前 Rule of Three (Big Three) Big Three 含义：C&#43;&#43;11 前，如果手动定义了以下三个函数之一或者更多，那么应尽可能手动定义所有三个。这只是一个大家都认为比较好的约定准则，并没有被写入标准。
+ copy ctor copy assignment destructor  这三个函数之所以特殊，是因为涉及到 处理资源的生命周期，编译器认为，既然程序员显示定义了某个特殊函数，这表明这个类的资源管理有点复杂（non-trivial），这超出了编译器自动处理能力的范围，程序员理应编写涉及资源管理的其他函数。
+C&#43;&#43;11 前默认生成的函数  default ctor destructor copy ctor copy assignment  These functions are known as the special member functions, and they are what make simple user-defined types in C&#43;&#43; behave like structures do in C."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://chanfun.cc/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "C++ 默认生成的特殊函数",
+      "item": "http://chanfun.cc/post/auto_generated_func/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "C++ 默认生成的特殊函数",
+  "name": "C\u002b\u002b 默认生成的特殊函数",
+  "description": "[TOC]\nC++ 默认生成的特殊函数 前言 再度感叹 C++ 历史包袱有点重，为了兼容旧代码导致细节的繁杂。\n为了撰文的方便，constructor, assignment operator, destructor 分别由 ctor, assignment, dtor 替代。\nC++ 11 以前 Rule of Three (Big Three) Big Three 含义：C++11 前，如果手动定义了以下三个函数之一或者更多，那么应尽可能手动定义所有三个。这只是一个大家都认为比较好的约定准则，并没有被写入标准。\n copy ctor copy assignment destructor  这三个函数之所以特殊，是因为涉及到 处理资源的生命周期，编译器认为，既然程序员显示定义了某个特殊函数，这表明这个类的资源管理有点复杂（non-trivial），这超出了编译器自动处理能力的范围，程序员理应编写涉及资源管理的其他函数。\nC++11 前默认生成的函数  default ctor destructor copy ctor copy assignment  These functions are known as the special member functions, and they are what make simple user-defined types in C++ behave like structures do in C.",
+  "keywords": [
+    
+  ],
+  "articleBody": "[TOC]\nC++ 默认生成的特殊函数 前言 再度感叹 C++ 历史包袱有点重，为了兼容旧代码导致细节的繁杂。\n为了撰文的方便，constructor, assignment operator, destructor 分别由 ctor, assignment, dtor 替代。\nC++ 11 以前 Rule of Three (Big Three) Big Three 含义：C++11 前，如果手动定义了以下三个函数之一或者更多，那么应尽可能手动定义所有三个。这只是一个大家都认为比较好的约定准则，并没有被写入标准。\n copy ctor copy assignment destructor  这三个函数之所以特殊，是因为涉及到 处理资源的生命周期，编译器认为，既然程序员显示定义了某个特殊函数，这表明这个类的资源管理有点复杂（non-trivial），这超出了编译器自动处理能力的范围，程序员理应编写涉及资源管理的其他函数。\nC++11 前默认生成的函数  default ctor destructor copy ctor copy assignment  These functions are known as the special member functions, and they are what make simple user-defined types in C++ behave like structures do in C.\n编译器自动生成这些函数，是为了使得 C++ 里用户自定义的类型能够像 C 里面的类型一样地表现。\n比如：\nint a = 2; // in c code TypeA a; TypeA aa = a; // in C++ code. 值得一提的是 default ctor，default ctor 只初始化资源，在语义上更接近于任何其他取值的构造函数（也称为 initialization ctor），而不是那些处理资源生命周期的特殊函数。这也是为什么其他三个函数称为 big three。\n不好的习惯：尽管有 Rule of Three，但是 C++98 并不强制执行。\n C++98 didn’t natively enforce the rule of 3.\n 具体来说：\n 如果有自定义了某个函数，那么编译器不会生成对应函数，很容易理解。比如明确定义了一个 ctor，那么就不会自动生成 default ctor。同理 dtor, copy ctor, copy assigment.   如果自定义了任何 ctor，则不会自动生成 default ctor。 如果自定义了 dtor，则不会自动生成 default dtor。 但对于copy function 而言  copy ctor: 不论你是否写了 initialization ctor 或者 copy assignment, dtor，都会默认生成 ctor。 copy assignment : 不论你是否写了 initialization ctor 或者 copy assignment, dtor，都会默认生成（因为标准不强制执行 Rule of 3）。    言下之意：C++11 前，dtor, copy ctor, copy assignment 只要用户不定义他们，编译器就会自动生成一个。而如果自定义了任何 ctor，则不会自动生成 default ctor。\n Although considered good practice, the compiler can’t enforce it. The C++ standard [ N1316 ] mandates that implicit versions will be created if a user doesn’t declare them explicitly:\n§ 12.4 / 3 If a class has no user-declared destructor, a destructor is declared implicitly\n§ 12.8 / 4 If the class definition does not explicitly declare a copy constructor, one is declared implicitly.\n§ 12.8 / 10 If the class definition does not explicitly declare a copy assignment operator, one is declared implicitly\n 步入 C++11 C++11 引入了 移动语义，加入了 move ctor 和 move assignment。\nRule of Five Rule of Five: 含义：C++11 以来，如果手动定义了以下五个函数之一或者更多，那么应尽可能手动定义全部五个。\n copy ctor copy assignment destructor move ctor move assignment  C++11 及其以后 默认生成的函数 C++11 引入了 =default 显示表示编译器默认生成的函数，后文虽把 “标记为=default”、“编译器默认生成” 分成两种说法，是为了易于理解，本质上一回事。\n尽管 C++98 没有强制推行 Rule of Three, 而 C++11 又想强制推行 Rule of Five（后面又提倡 Rule of Zero），但是又得考虑兼容以前的旧代码，混乱由此而生。\n具体来说：\n 如果有自定义了某个函数，那么编译器不会生成对应函数，很容易理解。比如明确定义了一个 ctor，那么就不会自动生成 default ctor。同理 dtor, copy ctor, copy assigment.    如果自定义了任何 ctor，则不会自动生成 default ctor。\n  如果自定义了 dtor，则不会自动生成 default dtor。\n  对于 copy function（包括 copy ctor 和 copy assignment） 而言，如果没有 move ctor，move assignment ，那么将自动生成一个，因为编译器认为这是 C++11 以前的代码，那么为了兼容，就得自动生成 copy ctor 和 copy assignment。\n copy ctor: 为了兼容，  如果没有 copy ctor，先考虑自动生成一个默认的， 如果有 move function，那么标记为=delete；如果没有 move function，标记为 =default， 但如果用户自定义了 copy assignment / dtor，则还是会生成一个默认的，但是不推荐使用。   copy assignment 同理。   § 12.8 / 7 copy ctor\nIf the class definition does not explicitly declare a copy constructor, one is declared implicitly.\nIf the class definition declares a move constructor or move assignment operator, the implicitly declared copy constructor is defined as deleted; otherwise, it is defined as defaulted (8.4). The latter case is deprecated if the class has a user-declared copy assignment operator or a user-declared destructor.\n§ 12.8 / 18 copy assignment\nIf the class definition does not explicitly declare a copy assignment operator, one is declared implicitly.\nIf the class definition declares a move constructor or move assignment operator, the implicitly declared copy assignment operator is defined as deleted; otherwise, it is defined as defaulted (8.4). The latter case is deprecated if the class has a user-declared copy constructor or a user-declared destructor.\n   move ctor，只在 Rule of Five 里的其他四个函数没有被自定义的时候自动生成。\n  move assignment，只在 Rule of Five 里的其他四个函数没有被自定义的时候自动生成。\n  言下之意：相比 C++11 以前的规则，加入了两个 move function，copy function 只是加了 move function 的限制。两个 move function 则完全遵守 Rule of Five 的规则。\n参考  习惯了对网络上的中文资料保持警惕，却偏信了英文资料，细节方面还是得参考权威。Wikipedia, Microsoft Docs, fluent cpp 说法细节上的不一致甚至错误，耗费了太多时间。\n  https://accu.org/journals/overload/22/120/alday_1896/  ",
+  "wordCount" : "535",
+  "inLanguage": "en",
+  "datePublished": "2022-03-16T01:37:35+08:00",
+  "dateModified": "2022-03-16T01:37:35+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://chanfun.cc/post/auto_generated_func/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My New Hugo Site",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://chanfun.cc/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://chanfun.cc/" accesskey="h" title="My New Hugo Site (Alt + H)">My New Hugo Site</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      C&#43;&#43; 默认生成的特殊函数
+    </h1>
+    <div class="post-meta"><span title='2022-03-16 01:37:35 +0800 CST'>March 16, 2022</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>[TOC]</p>
+<h1 id="c-默认生成的特殊函数">C++ 默认生成的特殊函数<a hidden class="anchor" aria-hidden="true" href="#c-默认生成的特殊函数">#</a></h1>
+<h2 id="前言">前言<a hidden class="anchor" aria-hidden="true" href="#前言">#</a></h2>
+<p>再度感叹 C++ 历史包袱有点重，为了兼容旧代码导致细节的繁杂。</p>
+<p>为了撰文的方便，<strong>constructor, assignment operator, destructor 分别由 ctor, assignment, dtor 替代</strong>。</p>
+<h2 id="c-11-以前">C++ 11 以前<a hidden class="anchor" aria-hidden="true" href="#c-11-以前">#</a></h2>
+<h4 id="rule-of-three-big-three">Rule of Three (Big Three)<a hidden class="anchor" aria-hidden="true" href="#rule-of-three-big-three">#</a></h4>
+<p>Big Three 含义：<strong>C++11 前</strong>，如果手动定义了以下三个函数之一或者更多，那么应尽可能手动定义所有三个。这只是一个大家都认为比较好的约定准则，并没有被写入标准。</p>
+<ul>
+<li>copy ctor</li>
+<li>copy assignment</li>
+<li>destructor</li>
+</ul>
+<p>这三个函数之所以特殊，是因为涉及到 <strong>处理资源的生命周期</strong>，编译器认为，既然程序员显示定义了某个特殊函数，这表明这个类的资源管理有点复杂（<strong>non-trivial</strong>），这超出了编译器自动处理能力的范围，程序员理应编写涉及资源管理的其他函数。</p>
+<h4 id="c11-前默认生成的函数">C++11 前默认生成的函数<a hidden class="anchor" aria-hidden="true" href="#c11-前默认生成的函数">#</a></h4>
+<ul>
+<li>default ctor</li>
+<li>destructor</li>
+<li>copy ctor</li>
+<li>copy assignment</li>
+</ul>
+<p>These functions are known as the <em>special member functions</em>, and they are what make simple user-defined types in C++ behave like structures do in C.</p>
+<p><strong>编译器自动生成这些函数，是为了使得 C++ 里用户自定义的类型能够像 C 里面的类型一样地表现。</strong></p>
+<p>比如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>; <span style="color:#75715e">// in c code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>TypeA a;
+</span></span><span style="display:flex;"><span>TypeA aa <span style="color:#f92672">=</span> a; <span style="color:#75715e">// in C++ code.
+</span></span></span></code></pre></div><p>值得一提的是 default ctor，<strong>default ctor</strong> 只<strong>初始化资源</strong>，在语义上更接近于任何其他取值的构造函数（也称为 initialization ctor），而不是那些处理资源生命周期的特殊函数。这也是为什么其他三个函数称为 big three。</p>
+<p><strong>不好的习惯</strong>：尽管有 Rule of Three，但是 C++98 并不强制执行。</p>
+<blockquote>
+<p>C++98 didn’t natively enforce the rule of 3.</p>
+</blockquote>
+<p>具体来说：</p>
+<ul>
+<li>如果有自定义了某个函数，那么编译器不会生成对应函数，很容易理解。比如明确定义了一个 ctor，那么就不会自动生成 default ctor。同理 dtor, copy ctor, copy assigment.</li>
+</ul>
+<ol>
+<li>如果自定义了任何 ctor，则不会自动生成 default ctor。</li>
+<li>如果自定义了 dtor，则不会自动生成 default dtor。</li>
+<li>但对于<strong>copy function</strong> 而言
+<ul>
+<li>copy ctor: 不论你是否写了  initialization ctor 或者 copy assignment, dtor，都会默认生成 ctor。</li>
+<li>copy assignment : 不论你是否写了 initialization ctor 或者 copy assignment, dtor，都会默认生成（因为标准不强制执行 Rule of 3）。</li>
+</ul>
+</li>
+</ol>
+<p>言下之意：<strong>C++11 前，dtor, copy ctor, copy assignment 只要用户不定义他们，编译器就会自动生成一个。而如果自定义了任何 ctor，则不会自动生成 default ctor。</strong></p>
+<blockquote>
+<p>Although considered good practice, the compiler can’t enforce it. The C++ standard [ <a href="https://accu.org/journals/overload/22/120/alday_1896/#%5BN1316%5D">N1316 </a>] mandates that implicit versions will be created if a user doesn’t declare them explicitly:</p>
+<p>§ 12.4 / 3 If a class has no user-declared destructor, a destructor is declared implicitly</p>
+<p>§ 12.8 / 4 If the class definition does not explicitly declare a copy constructor, one is declared implicitly.</p>
+<p>§ 12.8 / 10 If the class definition does not explicitly declare a copy assignment operator, one is declared implicitly</p>
+</blockquote>
+<h2 id="步入-c11">步入 C++11<a hidden class="anchor" aria-hidden="true" href="#步入-c11">#</a></h2>
+<p>C++11 引入了 <strong>移动语义</strong>，加入了 move ctor 和 move assignment。</p>
+<h3 id="rule-of-five">Rule of Five<a hidden class="anchor" aria-hidden="true" href="#rule-of-five">#</a></h3>
+<p><strong>Rule of Five</strong>: 含义：<strong>C++11 以来</strong>，如果手动定义了以下五个函数之一或者更多，那么应尽可能手动定义全部五个。</p>
+<ul>
+<li>copy ctor</li>
+<li>copy assignment</li>
+<li>destructor</li>
+<li>move ctor</li>
+<li>move assignment</li>
+</ul>
+<h3 id="c11-及其以后-默认生成的函数">C++11 及其以后 默认生成的函数<a hidden class="anchor" aria-hidden="true" href="#c11-及其以后-默认生成的函数">#</a></h3>
+<p>C++11 引入了 <code>=default</code> 显示表示编译器默认生成的函数，后文虽把 “标记为<code>=default</code>”、“编译器默认生成” 分成两种说法，是为了易于理解，本质上一回事。</p>
+<p>尽管 C++98 没有强制推行 Rule of Three, 而 C++11 又想强制推行 Rule of Five（后面又提倡 Rule of Zero），但是又得考虑兼容以前的旧代码，混乱由此而生。</p>
+<p>具体来说：</p>
+<ul>
+<li>如果有自定义了某个函数，那么编译器不会生成对应函数，很容易理解。比如明确定义了一个 ctor，那么就不会自动生成 default ctor。同理 dtor, copy ctor, copy assigment.</li>
+</ul>
+<ol>
+<li>
+<p>如果自定义了任何 ctor，则不会自动生成 default ctor。</p>
+</li>
+<li>
+<p>如果自定义了 dtor，则不会自动生成 default dtor。</p>
+</li>
+<li>
+<p>对于 <strong>copy function</strong>（包括 copy ctor 和 copy assignment） 而言，如果没有 move ctor，move assignment ，那么将自动生成一个，因为编译器认为这是 C++11 以前的代码，那么为了兼容，就得自动生成 copy ctor 和 copy assignment。</p>
+<ul>
+<li>copy ctor: 为了兼容，
+<ul>
+<li>如果没有 copy ctor，先考虑自动生成一个默认的，</li>
+<li>如果有 move function，那么标记为<code>=delete</code>；如果没有 move function，标记为 <code>=default</code>，</li>
+<li>但如果用户自定义了 copy assignment / dtor，则还是会生成一个默认的，但是不推荐使用。</li>
+</ul>
+</li>
+<li>copy assignment 同理。</li>
+</ul>
+<blockquote>
+<p>§ 12.8 / 7 copy ctor</p>
+<p>If the class definition does not explicitly declare a copy constructor, one is declared implicitly.</p>
+<p>If the class definition declares a move constructor or move assignment operator, the implicitly declared copy constructor is defined as deleted; otherwise, it is defined as defaulted (8.4). The latter case is deprecated if the class has a user-declared copy assignment operator or a user-declared destructor.</p>
+<p>§ 12.8 / 18 copy assignment</p>
+<p>If the class definition does not explicitly declare a copy assignment operator, one is declared implicitly.</p>
+<p>If the class definition declares a move constructor or move assignment operator, the implicitly declared copy assignment operator is defined as deleted; otherwise, it is defined as defaulted (8.4). The latter case is deprecated if the class has a user-declared copy constructor or a user-declared destructor.</p>
+</blockquote>
+</li>
+<li>
+<p>move ctor，只在 <code>Rule of Five</code> 里的其他四个函数没有被自定义的时候自动生成。</p>
+</li>
+<li>
+<p>move assignment，只在 <code>Rule of Five</code> 里的其他四个函数没有被自定义的时候自动生成。</p>
+</li>
+</ol>
+<p>言下之意：相比 C++11 以前的规则，加入了两个 move function，copy function 只是加了 move function 的限制。两个 move function    则完全遵守 Rule of Five 的规则。</p>
+<h2 id="参考">参考<a hidden class="anchor" aria-hidden="true" href="#参考">#</a></h2>
+<blockquote>
+<p>习惯了对网络上的中文资料保持警惕，却偏信了英文资料，细节方面还是得参考权威。Wikipedia, Microsoft Docs, fluent cpp 说法细节上的不一致甚至错误，耗费了太多时间。</p>
+</blockquote>
+<ol>
+<li><a href="https://accu.org/journals/overload/22/120/alday_1896/">https://accu.org/journals/overload/22/120/alday_1896/</a></li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="http://chanfun.cc/">My New Hugo Site</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

@@ -6,7 +6,21 @@
     <description>Recent content on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Mar 2022 19:23:16 +0800</lastBuildDate><atom:link href="http://chanfun.cc/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Mar 2022 01:37:35 +0800</lastBuildDate><atom:link href="http://chanfun.cc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43; 默认生成的特殊函数</title>
+      <link>http://chanfun.cc/post/auto_generated_func/</link>
+      <pubDate>Wed, 16 Mar 2022 01:37:35 +0800</pubDate>
+      
+      <guid>http://chanfun.cc/post/auto_generated_func/</guid>
+      <description>[TOC]
+C++ 默认生成的特殊函数 前言 再度感叹 C++ 历史包袱有点重，为了兼容旧代码导致细节的繁杂。
+为了撰文的方便，constructor, assignment operator, destructor 分别由 ctor, assignment, dtor 替代。
+C++ 11 以前 Rule of Three (Big Three) Big Three 含义：C++11 前，如果手动定义了以下三个函数之一或者更多，那么应尽可能手动定义所有三个。这只是一个大家都认为比较好的约定准则，并没有被写入标准。
+ copy ctor copy assignment destructor  这三个函数之所以特殊，是因为涉及到 处理资源的生命周期，编译器认为，既然程序员显示定义了某个特殊函数，这表明这个类的资源管理有点复杂（non-trivial），这超出了编译器自动处理能力的范围，程序员理应编写涉及资源管理的其他函数。
+C++11 前默认生成的函数  default ctor destructor copy ctor copy assignment  These functions are known as the special member functions, and they are what make simple user-defined types in C++ behave like structures do in C.</description>
+    </item>
+    
     <item>
       <title>First</title>
       <link>http://chanfun.cc/post/first/</link>
