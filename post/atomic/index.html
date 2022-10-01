@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>C&#43;&#43; atomic | 趁风</title>
+<meta name="keywords" content="" />
+<meta name="description" content="Strong / Weak Memory Model   强内存模型：常常指线性一致性（sequential model）。满足以下两个条件
+ 程序按照源文件中的代码顺序执行； 各个线程的所有操作存在一个固定的顺序（global order）。想象各线程共享一个 gloabl clock；    弱内存模型：常常指 relaxed semantic.
+ thread-1 可能看到 thread-2 不是按照其源文件中代码顺序来执行的； 甚至 thread-2 本身自己执行指令就不按照源代码顺序；    这两种模型间还有其他内存模型，比如 Acquire-release semantic. 内存模型越强，对于程序员来讲越好理解，但是对于系统（编译器、处理器、caches）来讲，留有的优化空间越小。反之，采用较弱的内存模型写的程序，具有很大的优化潜能，但是比较反人类直觉，一般程序员难以理解。
+The Atomic Flag std::atomic_flag 是一个原子的布尔量，具有 clear, set 两种状态。clear 状态下值为 false, set 状态下值为 true。
+  成员方法：
+ clear() 方法，将变量的值设置为 false。 test_and_set() 方法，返回变量的旧值并将变量值设置为 false。 C&#43;&#43;20 新加入 test(), wait(), notify_one(), notify_all() 成员方法，本文暂不讨论，专注 C&#43;&#43;11 内容。    初始化：">
+<meta name="author" content="">
+<link rel="canonical" href="http://chanfun.cc/post/atomic/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="http://chanfun.cc/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://chanfun.cc/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://chanfun.cc/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://chanfun.cc/apple-touch-icon.png">
+<link rel="mask-icon" href="http://chanfun.cc/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="C&#43;&#43; atomic" />
+<meta property="og:description" content="Strong / Weak Memory Model   强内存模型：常常指线性一致性（sequential model）。满足以下两个条件
+ 程序按照源文件中的代码顺序执行； 各个线程的所有操作存在一个固定的顺序（global order）。想象各线程共享一个 gloabl clock；    弱内存模型：常常指 relaxed semantic.
+ thread-1 可能看到 thread-2 不是按照其源文件中代码顺序来执行的； 甚至 thread-2 本身自己执行指令就不按照源代码顺序；    这两种模型间还有其他内存模型，比如 Acquire-release semantic. 内存模型越强，对于程序员来讲越好理解，但是对于系统（编译器、处理器、caches）来讲，留有的优化空间越小。反之，采用较弱的内存模型写的程序，具有很大的优化潜能，但是比较反人类直觉，一般程序员难以理解。
+The Atomic Flag std::atomic_flag 是一个原子的布尔量，具有 clear, set 两种状态。clear 状态下值为 false, set 状态下值为 true。
+  成员方法：
+ clear() 方法，将变量的值设置为 false。 test_and_set() 方法，返回变量的旧值并将变量值设置为 false。 C&#43;&#43;20 新加入 test(), wait(), notify_one(), notify_all() 成员方法，本文暂不讨论，专注 C&#43;&#43;11 内容。    初始化：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://chanfun.cc/post/atomic/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-09-24T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-09-24T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C&#43;&#43; atomic"/>
+<meta name="twitter:description" content="Strong / Weak Memory Model   强内存模型：常常指线性一致性（sequential model）。满足以下两个条件
+ 程序按照源文件中的代码顺序执行； 各个线程的所有操作存在一个固定的顺序（global order）。想象各线程共享一个 gloabl clock；    弱内存模型：常常指 relaxed semantic.
+ thread-1 可能看到 thread-2 不是按照其源文件中代码顺序来执行的； 甚至 thread-2 本身自己执行指令就不按照源代码顺序；    这两种模型间还有其他内存模型，比如 Acquire-release semantic. 内存模型越强，对于程序员来讲越好理解，但是对于系统（编译器、处理器、caches）来讲，留有的优化空间越小。反之，采用较弱的内存模型写的程序，具有很大的优化潜能，但是比较反人类直觉，一般程序员难以理解。
+The Atomic Flag std::atomic_flag 是一个原子的布尔量，具有 clear, set 两种状态。clear 状态下值为 false, set 状态下值为 true。
+  成员方法：
+ clear() 方法，将变量的值设置为 false。 test_and_set() 方法，返回变量的旧值并将变量值设置为 false。 C&#43;&#43;20 新加入 test(), wait(), notify_one(), notify_all() 成员方法，本文暂不讨论，专注 C&#43;&#43;11 内容。    初始化："/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://chanfun.cc/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "C++ atomic",
+      "item": "http://chanfun.cc/post/atomic/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "C++ atomic",
+  "name": "C\u002b\u002b atomic",
+  "description": "Strong / Weak Memory Model   强内存模型：常常指线性一致性（sequential model）。满足以下两个条件\n 程序按照源文件中的代码顺序执行； 各个线程的所有操作存在一个固定的顺序（global order）。想象各线程共享一个 gloabl clock；    弱内存模型：常常指 relaxed semantic.\n thread-1 可能看到 thread-2 不是按照其源文件中代码顺序来执行的； 甚至 thread-2 本身自己执行指令就不按照源代码顺序；    这两种模型间还有其他内存模型，比如 Acquire-release semantic. 内存模型越强，对于程序员来讲越好理解，但是对于系统（编译器、处理器、caches）来讲，留有的优化空间越小。反之，采用较弱的内存模型写的程序，具有很大的优化潜能，但是比较反人类直觉，一般程序员难以理解。\nThe Atomic Flag std::atomic_flag 是一个原子的布尔量，具有 clear, set 两种状态。clear 状态下值为 false, set 状态下值为 true。\n  成员方法：\n clear() 方法，将变量的值设置为 false。 test_and_set() 方法，返回变量的旧值并将变量值设置为 false。 C++20 新加入 test(), wait(), notify_one(), notify_all() 成员方法，本文暂不讨论，专注 C++11 内容。    初始化：",
+  "keywords": [
+    
+  ],
+  "articleBody": "Strong / Weak Memory Model   强内存模型：常常指线性一致性（sequential model）。满足以下两个条件\n 程序按照源文件中的代码顺序执行； 各个线程的所有操作存在一个固定的顺序（global order）。想象各线程共享一个 gloabl clock；    弱内存模型：常常指 relaxed semantic.\n thread-1 可能看到 thread-2 不是按照其源文件中代码顺序来执行的； 甚至 thread-2 本身自己执行指令就不按照源代码顺序；    这两种模型间还有其他内存模型，比如 Acquire-release semantic. 内存模型越强，对于程序员来讲越好理解，但是对于系统（编译器、处理器、caches）来讲，留有的优化空间越小。反之，采用较弱的内存模型写的程序，具有很大的优化潜能，但是比较反人类直觉，一般程序员难以理解。\nThe Atomic Flag std::atomic_flag 是一个原子的布尔量，具有 clear, set 两种状态。clear 状态下值为 false, set 状态下值为 true。\n  成员方法：\n clear() 方法，将变量的值设置为 false。 test_and_set() 方法，返回变量的旧值并将变量值设置为 false。 C++20 新加入 test(), wait(), notify_one(), notify_all() 成员方法，本文暂不讨论，专注 C++11 内容。    初始化：\n必须以如下方式初始化。\nstd::atomic_flag flag = ATOMIC_FLAG_INIT; std::atomic_flag flag(ATOMIC_FLAG_INIT); // !! unspecified.   特点：\n  唯一保证真正 lock-free 的原子量 (atomic)。lock-free 含义：系统范围内保证运行无阻塞。\n 其他原子量，比如 std::atomic ，C++ 标准允许其内部使用 mutex 来实现。有 mutex 就有可能存在阻塞，可能不是真正的 lock-free，成员函数 is_lock_free() 可以用来验证是否真正的 lock-free。（已知的大部分实现都是 lock-free 的。）\n   构建 higher level 的线程等抽象的基石。\n    Spinlock   原理：与使用 mutex 进程主动阻塞不同，使用 spinlock 进程CPU空转尝试获取锁进入临界区，减少了上下文切换的开销同时，浪费了 CPU cycles。通常某 lock 的实现会结合 spinlock 和 mutex 的思路实现，自旋一段时间后仍无法进入临界区就主动阻塞。\n  注意事项：spinlock 不应在单核系统上使用，最好情况下（比如进行 spin 的进程时间片到了，CPU 被分配给其他进程），浪费了CPU cycles，减慢了锁持有者的执行进度。最坏情况下（非抢占式），会造成 dead_lock。\n  利用 std::atomic_flag 实现一个简单的 spinlock.\n 第一个调用 lock() 的进程会立马返回。 倘若后续同一个进程还没有 unlock()，其他进程尝试 lock() 则会 spin。 只有调用 lock() 的进程调用 unlock(), 其他进程调用 lock() 才不会阻塞。  #include #include  class Spinlock { private: std::atomic_flag flag = ATOMIC_FLAG_INIT; public: void lock() { while (flag.test_and_set()) ; } void unlock() { flag.clear(); } }; Spinlock spin; void WorkOnResource() { spin.lock(); spin.unlock(); } int main(int argc, char const *argv[]) { std::thread t(WorkOnResource); std::thread t1(WorkOnResource); t.join(); t1.join(); return 0; }   Ref  wait-free and lock-free  ",
+  "wordCount" : "183",
+  "inLanguage": "en",
+  "datePublished": "2022-09-24T00:00:00Z",
+  "dateModified": "2022-09-24T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://chanfun.cc/post/atomic/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "趁风",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://chanfun.cc/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://chanfun.cc/" accesskey="h" title="趁风 (Alt + H)">趁风</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://chanfun.cc/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://chanfun.cc/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      C&#43;&#43; atomic<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>
+    </h1>
+    <div class="post-meta"><span title='2022-09-24 00:00:00 +0000 UTC'>September 24, 2022</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="strong--weak-memory-model">Strong / Weak Memory Model<a hidden class="anchor" aria-hidden="true" href="#strong--weak-memory-model">#</a></h2>
+<ol>
+<li>
+<p>强内存模型：常常指线性一致性（<strong>sequential model</strong>）。满足以下两个条件</p>
+<ul>
+<li>程序按照源文件中的代码顺序执行；</li>
+<li>各个线程的所有操作存在一个固定的顺序（<strong>global order</strong>）。想象各线程共享一个 <strong>gloabl clock</strong>；</li>
+</ul>
+</li>
+<li>
+<p>弱内存模型：常常指 <strong>relaxed semantic</strong>.</p>
+<ul>
+<li>thread-1 可能看到 thread-2 不是按照其源文件中代码顺序来执行的；</li>
+<li>甚至 thread-2 本身自己执行指令就不按照源代码顺序；</li>
+</ul>
+</li>
+</ol>
+<p>这两种模型间还有其他内存模型，比如 <strong>Acquire-release semantic</strong>. 内存模型越强，对于程序员来讲越好理解，但是对于系统（<strong>编译器、处理器、caches</strong>）来讲，留有的优化空间越小。反之，采用较弱的内存模型写的程序，具有很大的优化潜能，但是比较反人类直觉，一般程序员难以理解。</p>
+<h2 id="the-atomic-flag">The Atomic Flag<a hidden class="anchor" aria-hidden="true" href="#the-atomic-flag">#</a></h2>
+<p><code>std::atomic_flag</code> 是一个原子的布尔量，具有 <code>clear</code>, <code>set</code> 两种状态。<code>clear</code> 状态下值为 false, <code>set</code> 状态下值为 true。</p>
+<ol>
+<li>
+<p>成员方法：</p>
+<ul>
+<li>clear() 方法，将变量的值设置为 false。</li>
+<li>test_and_set() 方法，返回变量的旧值并将变量值设置为 false。</li>
+<li>C++20 新加入 test(), wait(), notify_one(), notify_all() 成员方法，本文暂不讨论，专注 C++11 内容。</li>
+</ul>
+</li>
+<li>
+<p>初始化：</p>
+<p><strong>必须</strong>以如下方式初始化。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">atomic_flag</span> <span class="n">flag</span> <span class="o">=</span> <span class="n">ATOMIC_FLAG_INIT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">atomic_flag</span> <span class="n">flag</span><span class="p">(</span><span class="n">ATOMIC_FLAG_INIT</span><span class="p">);</span> <span class="c1">// !! unspecified.
+</span></span></span></code></pre></div></li>
+<li>
+<p>特点：</p>
+<ul>
+<li>
+<p>唯一保证<strong>真正 lock-free</strong> 的原子量 (atomic)。lock-free 含义：系统范围内保证运行无阻塞。</p>
+<blockquote>
+<p>其他原子量，比如 std::atomic<int> ，C++ 标准允许其内部使用 mutex 来实现。有 mutex 就有可能存在阻塞，可能不是真正的 lock-free，成员函数 is_lock_free() 可以用来验证是否真正的 lock-free。（已知的大部分实现都是 lock-free 的。）</p>
+</blockquote>
+</li>
+<li>
+<p>构建 higher level 的线程等抽象的基石。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="spinlock">Spinlock<a hidden class="anchor" aria-hidden="true" href="#spinlock">#</a></h3>
+<ol>
+<li>
+<p>原理：与使用 mutex 进程主动阻塞不同，使用 spinlock 进程<strong>CPU空转</strong>尝试获取锁进入临界区，<strong>减少了上下文切换的开销</strong>同时，浪费了 CPU cycles。通常某 lock 的实现会结合 spinlock 和 mutex 的思路实现，自旋一段时间后仍无法进入临界区就主动阻塞。</p>
+</li>
+<li>
+<p>注意事项：spinlock 不应在单核系统上使用，最好情况下（比如进行 spin 的进程时间片到了，CPU 被分配给其他进程），浪费了CPU cycles，减慢了锁持有者的执行进度。最坏情况下（非抢占式），会造成 dead_lock。</p>
+</li>
+<li>
+<p>利用 std::atomic_flag 实现一个简单的 spinlock.</p>
+<ul>
+<li>第一个调用 lock() 的进程会立马返回。</li>
+<li>倘若后续同一个进程还没有 unlock()，其他进程尝试 lock() 则会 spin。</li>
+<li>只有调用 lock() 的进程调用 unlock(), 其他进程调用 lock() 才不会阻塞。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;atomic&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;thread&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Spinlock</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">atomic_flag</span> <span class="n">flag</span> <span class="o">=</span> <span class="n">ATOMIC_FLAG_INIT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">lock</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">flag</span><span class="p">.</span><span class="n">test_and_set</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">      <span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">unlock</span><span class="p">()</span> <span class="p">{</span> <span class="n">flag</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Spinlock</span> <span class="n">spin</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">WorkOnResource</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">spin</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">spin</span><span class="p">.</span><span class="n">unlock</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t</span><span class="p">(</span><span class="n">WorkOnResource</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t1</span><span class="p">(</span><span class="n">WorkOnResource</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">t</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="ref">Ref<a hidden class="anchor" aria-hidden="true" href="#ref">#</a></h2>
+<ol>
+<li><a href="https://rethinkdb.com/blog/lock-free-vs-wait-free-concurrency/">wait-free and lock-free</a></li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+  </footer>
+<div>
+    <div class="pagination__title">
+        <span class="pagination__title-h" style="font-size: 20px;">💬评论</span>
+        <hr />
+    </div>
+    <div id="tcomment"></div>
+    <script src="https://cdn.staticfile.org/twikoo/1.5.11/twikoo.all.min.js"></script>
+    <script>
+        twikoo.init({
+            envId: "https://twikoo-comments-zeta.vercel.app/",  
+            el: "#tcomment",
+            lang: 'zh-CN',
+            
+            path: window.TWIKOO_MAGIC_PATH||window.location.pathname,
+        });
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="http://chanfun.cc/">趁风</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
