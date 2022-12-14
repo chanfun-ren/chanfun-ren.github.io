@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>前往那个小岛 | 趁风</title>
+<meta name="keywords" content="" />
+<meta name="description" content="电脑本地的周记已经有三礼拜没更新过了。实际上从上个月中旬开始，日子就开始稀里糊涂的过了。上月中旬的某个凌晨实在受不了室友的呼噜声，打定主意搬出来住，看房租房折腾了好几天，随后的几天学校又封闭管理，频繁地申请进校考试和办理走读手续都让我局促无所措手。不过好在大家都憋不住了，暗流涌动的几天后，从广东开始各地都放开了，舆论上新冠就变成感冒了。cn 结构性的问题顽疾难改，对此的抨击暂且不表，不过那段时间看见身边的同学为“具体的人”发声真的很感动。
+实在想不起这一个月到底干了些啥，虽然中间有着好几门考试和各科的作业。但考试也只是考前看一个小时或者直接裸考，作业也是在快到 ddl 的时候写，时间都不知道花到哪里去了。唯一有印象的是最近几天又尝试了下 rust，去年暑假看的一些基础语法全忘光了，又从头开始学，用 tui-rs 试着写了个本地的音乐播放器，大概的功能完成了三分之一就没动力接着完善下去了，又一件烂尾的事。
+问题一直在那，阶段性摇摆地过活着。
+最近任由新鲜感驱动，东品西尝的生活让我有些失控感。可当进一步发问，放纵自己的精力去追逐好奇的事物，这到底是不是真的失控？想起朋友圈学长发的一条“什么时候下班可以不用学了”，其中某些含义大体类似。我只不过是无目的地消耗自己了一些精力，没有用在学习上，没有用在提升自己上，没有用在“为将来做准备”上，轻微的失控感便悄然产生，再加上各种原因我一直很不满自己的生活状态，失控感更甚。
+“什么阶段干什么样的事”，好像在某个阶段没做好应该做的事，便不会有足够的主动权去选择未来。于是拿现在足够的主动权去选择干“该干的事”。最致命的是，目前从学校/社会习得的理性(也可以说是接受的洗脑教育)告诉我“什么阶段该干什么样的事”是有道理的。但是另一方面我也知道，在这个时代即使不干“该干的事”，我也不会饿死。那么该怎么过活？世俗的信条，比如随波逐流的平平淡淡或者对名权利的持续追求，我总能找到怀疑鄙弃的角度。理想的信条在践行过程中，也时常被现实干趴，被击败多次后，我也不再把理想的信条作为生活的指导原则，不是不认可它，只是已经懦弱地认为自己没有能力去抵挡现实的冲击对抗，每次的败下阵来的自省都让我痛苦不堪。干脆逃避好了，于是不停地摇摆，在怀疑一切的路上飘飘荡荡。但外界的社会规则仍在，内心对自由高尚的向往从未消解，又会在被现实刺痛亦或者确实厌倦了自己现状的时候，选择某个夜晚开始对自己的审判。我就像只破烂风筝，生命力这条线将我固定在涧边，倒挂在黑乎乎深不可测的深渊里被乱风耍来甩去，软弱的我有时候真想自己可以相信头顶的光亮，哪怕那片光亮是朵乌云，让我抛弃自由放弃高尚，哪怕自己注定触不到那光亮，永远只能在深渊里沉沦，只要让我一直相信不再怀疑就好了。无能者的幻想大抵如此，实际上目前我只能忍受这矛盾继续摇摆。">
+<meta name="author" content="">
+<link rel="canonical" href="http://chanfun.cc/post/captain_my_captain/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="http://chanfun.cc/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://chanfun.cc/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://chanfun.cc/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://chanfun.cc/apple-touch-icon.png">
+<link rel="mask-icon" href="http://chanfun.cc/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="前往那个小岛" />
+<meta property="og:description" content="电脑本地的周记已经有三礼拜没更新过了。实际上从上个月中旬开始，日子就开始稀里糊涂的过了。上月中旬的某个凌晨实在受不了室友的呼噜声，打定主意搬出来住，看房租房折腾了好几天，随后的几天学校又封闭管理，频繁地申请进校考试和办理走读手续都让我局促无所措手。不过好在大家都憋不住了，暗流涌动的几天后，从广东开始各地都放开了，舆论上新冠就变成感冒了。cn 结构性的问题顽疾难改，对此的抨击暂且不表，不过那段时间看见身边的同学为“具体的人”发声真的很感动。
+实在想不起这一个月到底干了些啥，虽然中间有着好几门考试和各科的作业。但考试也只是考前看一个小时或者直接裸考，作业也是在快到 ddl 的时候写，时间都不知道花到哪里去了。唯一有印象的是最近几天又尝试了下 rust，去年暑假看的一些基础语法全忘光了，又从头开始学，用 tui-rs 试着写了个本地的音乐播放器，大概的功能完成了三分之一就没动力接着完善下去了，又一件烂尾的事。
+问题一直在那，阶段性摇摆地过活着。
+最近任由新鲜感驱动，东品西尝的生活让我有些失控感。可当进一步发问，放纵自己的精力去追逐好奇的事物，这到底是不是真的失控？想起朋友圈学长发的一条“什么时候下班可以不用学了”，其中某些含义大体类似。我只不过是无目的地消耗自己了一些精力，没有用在学习上，没有用在提升自己上，没有用在“为将来做准备”上，轻微的失控感便悄然产生，再加上各种原因我一直很不满自己的生活状态，失控感更甚。
+“什么阶段干什么样的事”，好像在某个阶段没做好应该做的事，便不会有足够的主动权去选择未来。于是拿现在足够的主动权去选择干“该干的事”。最致命的是，目前从学校/社会习得的理性(也可以说是接受的洗脑教育)告诉我“什么阶段该干什么样的事”是有道理的。但是另一方面我也知道，在这个时代即使不干“该干的事”，我也不会饿死。那么该怎么过活？世俗的信条，比如随波逐流的平平淡淡或者对名权利的持续追求，我总能找到怀疑鄙弃的角度。理想的信条在践行过程中，也时常被现实干趴，被击败多次后，我也不再把理想的信条作为生活的指导原则，不是不认可它，只是已经懦弱地认为自己没有能力去抵挡现实的冲击对抗，每次的败下阵来的自省都让我痛苦不堪。干脆逃避好了，于是不停地摇摆，在怀疑一切的路上飘飘荡荡。但外界的社会规则仍在，内心对自由高尚的向往从未消解，又会在被现实刺痛亦或者确实厌倦了自己现状的时候，选择某个夜晚开始对自己的审判。我就像只破烂风筝，生命力这条线将我固定在涧边，倒挂在黑乎乎深不可测的深渊里被乱风耍来甩去，软弱的我有时候真想自己可以相信头顶的光亮，哪怕那片光亮是朵乌云，让我抛弃自由放弃高尚，哪怕自己注定触不到那光亮，永远只能在深渊里沉沦，只要让我一直相信不再怀疑就好了。无能者的幻想大抵如此，实际上目前我只能忍受这矛盾继续摇摆。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://chanfun.cc/post/captain_my_captain/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-12-14T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-12-14T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="前往那个小岛"/>
+<meta name="twitter:description" content="电脑本地的周记已经有三礼拜没更新过了。实际上从上个月中旬开始，日子就开始稀里糊涂的过了。上月中旬的某个凌晨实在受不了室友的呼噜声，打定主意搬出来住，看房租房折腾了好几天，随后的几天学校又封闭管理，频繁地申请进校考试和办理走读手续都让我局促无所措手。不过好在大家都憋不住了，暗流涌动的几天后，从广东开始各地都放开了，舆论上新冠就变成感冒了。cn 结构性的问题顽疾难改，对此的抨击暂且不表，不过那段时间看见身边的同学为“具体的人”发声真的很感动。
+实在想不起这一个月到底干了些啥，虽然中间有着好几门考试和各科的作业。但考试也只是考前看一个小时或者直接裸考，作业也是在快到 ddl 的时候写，时间都不知道花到哪里去了。唯一有印象的是最近几天又尝试了下 rust，去年暑假看的一些基础语法全忘光了，又从头开始学，用 tui-rs 试着写了个本地的音乐播放器，大概的功能完成了三分之一就没动力接着完善下去了，又一件烂尾的事。
+问题一直在那，阶段性摇摆地过活着。
+最近任由新鲜感驱动，东品西尝的生活让我有些失控感。可当进一步发问，放纵自己的精力去追逐好奇的事物，这到底是不是真的失控？想起朋友圈学长发的一条“什么时候下班可以不用学了”，其中某些含义大体类似。我只不过是无目的地消耗自己了一些精力，没有用在学习上，没有用在提升自己上，没有用在“为将来做准备”上，轻微的失控感便悄然产生，再加上各种原因我一直很不满自己的生活状态，失控感更甚。
+“什么阶段干什么样的事”，好像在某个阶段没做好应该做的事，便不会有足够的主动权去选择未来。于是拿现在足够的主动权去选择干“该干的事”。最致命的是，目前从学校/社会习得的理性(也可以说是接受的洗脑教育)告诉我“什么阶段该干什么样的事”是有道理的。但是另一方面我也知道，在这个时代即使不干“该干的事”，我也不会饿死。那么该怎么过活？世俗的信条，比如随波逐流的平平淡淡或者对名权利的持续追求，我总能找到怀疑鄙弃的角度。理想的信条在践行过程中，也时常被现实干趴，被击败多次后，我也不再把理想的信条作为生活的指导原则，不是不认可它，只是已经懦弱地认为自己没有能力去抵挡现实的冲击对抗，每次的败下阵来的自省都让我痛苦不堪。干脆逃避好了，于是不停地摇摆，在怀疑一切的路上飘飘荡荡。但外界的社会规则仍在，内心对自由高尚的向往从未消解，又会在被现实刺痛亦或者确实厌倦了自己现状的时候，选择某个夜晚开始对自己的审判。我就像只破烂风筝，生命力这条线将我固定在涧边，倒挂在黑乎乎深不可测的深渊里被乱风耍来甩去，软弱的我有时候真想自己可以相信头顶的光亮，哪怕那片光亮是朵乌云，让我抛弃自由放弃高尚，哪怕自己注定触不到那光亮，永远只能在深渊里沉沦，只要让我一直相信不再怀疑就好了。无能者的幻想大抵如此，实际上目前我只能忍受这矛盾继续摇摆。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://chanfun.cc/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "前往那个小岛",
+      "item": "http://chanfun.cc/post/captain_my_captain/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "前往那个小岛",
+  "name": "前往那个小岛",
+  "description": "电脑本地的周记已经有三礼拜没更新过了。实际上从上个月中旬开始，日子就开始稀里糊涂的过了。上月中旬的某个凌晨实在受不了室友的呼噜声，打定主意搬出来住，看房租房折腾了好几天，随后的几天学校又封闭管理，频繁地申请进校考试和办理走读手续都让我局促无所措手。不过好在大家都憋不住了，暗流涌动的几天后，从广东开始各地都放开了，舆论上新冠就变成感冒了。cn 结构性的问题顽疾难改，对此的抨击暂且不表，不过那段时间看见身边的同学为“具体的人”发声真的很感动。\n实在想不起这一个月到底干了些啥，虽然中间有着好几门考试和各科的作业。但考试也只是考前看一个小时或者直接裸考，作业也是在快到 ddl 的时候写，时间都不知道花到哪里去了。唯一有印象的是最近几天又尝试了下 rust，去年暑假看的一些基础语法全忘光了，又从头开始学，用 tui-rs 试着写了个本地的音乐播放器，大概的功能完成了三分之一就没动力接着完善下去了，又一件烂尾的事。\n问题一直在那，阶段性摇摆地过活着。\n最近任由新鲜感驱动，东品西尝的生活让我有些失控感。可当进一步发问，放纵自己的精力去追逐好奇的事物，这到底是不是真的失控？想起朋友圈学长发的一条“什么时候下班可以不用学了”，其中某些含义大体类似。我只不过是无目的地消耗自己了一些精力，没有用在学习上，没有用在提升自己上，没有用在“为将来做准备”上，轻微的失控感便悄然产生，再加上各种原因我一直很不满自己的生活状态，失控感更甚。\n“什么阶段干什么样的事”，好像在某个阶段没做好应该做的事，便不会有足够的主动权去选择未来。于是拿现在足够的主动权去选择干“该干的事”。最致命的是，目前从学校/社会习得的理性(也可以说是接受的洗脑教育)告诉我“什么阶段该干什么样的事”是有道理的。但是另一方面我也知道，在这个时代即使不干“该干的事”，我也不会饿死。那么该怎么过活？世俗的信条，比如随波逐流的平平淡淡或者对名权利的持续追求，我总能找到怀疑鄙弃的角度。理想的信条在践行过程中，也时常被现实干趴，被击败多次后，我也不再把理想的信条作为生活的指导原则，不是不认可它，只是已经懦弱地认为自己没有能力去抵挡现实的冲击对抗，每次的败下阵来的自省都让我痛苦不堪。干脆逃避好了，于是不停地摇摆，在怀疑一切的路上飘飘荡荡。但外界的社会规则仍在，内心对自由高尚的向往从未消解，又会在被现实刺痛亦或者确实厌倦了自己现状的时候，选择某个夜晚开始对自己的审判。我就像只破烂风筝，生命力这条线将我固定在涧边，倒挂在黑乎乎深不可测的深渊里被乱风耍来甩去，软弱的我有时候真想自己可以相信头顶的光亮，哪怕那片光亮是朵乌云，让我抛弃自由放弃高尚，哪怕自己注定触不到那光亮，永远只能在深渊里沉沦，只要让我一直相信不再怀疑就好了。无能者的幻想大抵如此，实际上目前我只能忍受这矛盾继续摇摆。",
+  "keywords": [
+    
+  ],
+  "articleBody": " 电脑本地的周记已经有三礼拜没更新过了。实际上从上个月中旬开始，日子就开始稀里糊涂的过了。上月中旬的某个凌晨实在受不了室友的呼噜声，打定主意搬出来住，看房租房折腾了好几天，随后的几天学校又封闭管理，频繁地申请进校考试和办理走读手续都让我局促无所措手。不过好在大家都憋不住了，暗流涌动的几天后，从广东开始各地都放开了，舆论上新冠就变成感冒了。cn 结构性的问题顽疾难改，对此的抨击暂且不表，不过那段时间看见身边的同学为“具体的人”发声真的很感动。\n实在想不起这一个月到底干了些啥，虽然中间有着好几门考试和各科的作业。但考试也只是考前看一个小时或者直接裸考，作业也是在快到 ddl 的时候写，时间都不知道花到哪里去了。唯一有印象的是最近几天又尝试了下 rust，去年暑假看的一些基础语法全忘光了，又从头开始学，用 tui-rs 试着写了个本地的音乐播放器，大概的功能完成了三分之一就没动力接着完善下去了，又一件烂尾的事。\n问题一直在那，阶段性摇摆地过活着。\n最近任由新鲜感驱动，东品西尝的生活让我有些失控感。可当进一步发问，放纵自己的精力去追逐好奇的事物，这到底是不是真的失控？想起朋友圈学长发的一条“什么时候下班可以不用学了”，其中某些含义大体类似。我只不过是无目的地消耗自己了一些精力，没有用在学习上，没有用在提升自己上，没有用在“为将来做准备”上，轻微的失控感便悄然产生，再加上各种原因我一直很不满自己的生活状态，失控感更甚。\n“什么阶段干什么样的事”，好像在某个阶段没做好应该做的事，便不会有足够的主动权去选择未来。于是拿现在足够的主动权去选择干“该干的事”。最致命的是，目前从学校/社会习得的理性(也可以说是接受的洗脑教育)告诉我“什么阶段该干什么样的事”是有道理的。但是另一方面我也知道，在这个时代即使不干“该干的事”，我也不会饿死。那么该怎么过活？世俗的信条，比如随波逐流的平平淡淡或者对名权利的持续追求，我总能找到怀疑鄙弃的角度。理想的信条在践行过程中，也时常被现实干趴，被击败多次后，我也不再把理想的信条作为生活的指导原则，不是不认可它，只是已经懦弱地认为自己没有能力去抵挡现实的冲击对抗，每次的败下阵来的自省都让我痛苦不堪。干脆逃避好了，于是不停地摇摆，在怀疑一切的路上飘飘荡荡。但外界的社会规则仍在，内心对自由高尚的向往从未消解，又会在被现实刺痛亦或者确实厌倦了自己现状的时候，选择某个夜晚开始对自己的审判。我就像只破烂风筝，生命力这条线将我固定在涧边，倒挂在黑乎乎深不可测的深渊里被乱风耍来甩去，软弱的我有时候真想自己可以相信头顶的光亮，哪怕那片光亮是朵乌云，让我抛弃自由放弃高尚，哪怕自己注定触不到那光亮，永远只能在深渊里沉沦，只要让我一直相信不再怀疑就好了。无能者的幻想大抵如此，实际上目前我只能忍受这矛盾继续摇摆。\n",
+  "wordCount" : "11",
+  "inLanguage": "en",
+  "datePublished": "2022-12-14T00:00:00Z",
+  "dateModified": "2022-12-14T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://chanfun.cc/post/captain_my_captain/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "趁风",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://chanfun.cc/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://chanfun.cc/" accesskey="h" title="趁风 (Alt + H)">趁风</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://chanfun.cc/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://chanfun.cc/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      前往那个小岛
+    </h1>
+    <div class="post-meta"><span title='2022-12-14 00:00:00 +0000 UTC'>December 14, 2022</span>
+
+</div>
+  </header> 
+  <div class="post-content"><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=27163191&auto=1&height=66"></iframe>
+<p>电脑本地的周记已经有三礼拜没更新过了。实际上从上个月中旬开始，日子就开始稀里糊涂的过了。上月中旬的某个凌晨实在受不了室友的呼噜声，打定主意搬出来住，看房租房折腾了好几天，随后的几天学校又封闭管理，频繁地申请进校考试和办理走读手续都让我局促无所措手。不过好在大家都憋不住了，暗流涌动的几天后，从广东开始各地都放开了，舆论上新冠就变成感冒了。cn 结构性的问题顽疾难改，对此的抨击暂且不表，不过那段时间看见身边的同学为“具体的人”发声真的很感动。</p>
+<p>实在想不起这一个月到底干了些啥，虽然中间有着好几门考试和各科的作业。但考试也只是考前看一个小时或者直接裸考，作业也是在快到 ddl 的时候写，时间都不知道花到哪里去了。唯一有印象的是最近几天又尝试了下 rust，去年暑假看的一些基础语法全忘光了，又从头开始学，用 tui-rs 试着写了个本地的音乐播放器，大概的功能完成了三分之一就没动力接着完善下去了，又一件烂尾的事。</p>
+<p>问题一直在那，阶段性摇摆地过活着。</p>
+<p>最近任由新鲜感驱动，东品西尝的生活让我有些失控感。可当进一步发问，放纵自己的精力去追逐好奇的事物，这到底是不是真的失控？想起朋友圈学长发的一条“什么时候下班可以不用学了”，其中某些含义大体类似。我只不过是无目的地消耗自己了一些精力，没有用在学习上，没有用在提升自己上，没有用在“为将来做准备”上，轻微的失控感便悄然产生，再加上各种原因我一直很不满自己的生活状态，失控感更甚。</p>
+<p>“什么阶段干什么样的事”，好像在某个阶段没做好应该做的事，便不会有足够的主动权去选择未来。于是拿现在足够的主动权去选择干“该干的事”。最致命的是，目前从学校/社会习得的理性(也可以说是接受的洗脑教育)告诉我“什么阶段该干什么样的事”是有道理的。但是另一方面我也知道，在这个时代即使不干“该干的事”，我也不会饿死。那么该怎么过活？世俗的信条，比如随波逐流的平平淡淡或者对名权利的持续追求，我总能找到怀疑鄙弃的角度。理想的信条在践行过程中，也时常被现实干趴，被击败多次后，我也不再把理想的信条作为生活的指导原则，不是不认可它，只是已经懦弱地认为自己没有能力去抵挡现实的冲击对抗，每次的败下阵来的自省都让我痛苦不堪。干脆逃避好了，于是不停地摇摆，在怀疑一切的路上飘飘荡荡。但外界的社会规则仍在，内心对自由高尚的向往从未消解，又会在被现实刺痛亦或者确实厌倦了自己现状的时候，选择某个夜晚开始对自己的审判。我就像只破烂风筝，生命力这条线将我固定在涧边，倒挂在黑乎乎深不可测的深渊里被乱风耍来甩去，软弱的我有时候真想自己可以相信头顶的光亮，哪怕那片光亮是朵乌云，让我抛弃自由放弃高尚，哪怕自己注定触不到那光亮，永远只能在深渊里沉沦，只要让我一直相信不再怀疑就好了。无能者的幻想大抵如此，实际上目前我只能忍受这矛盾继续摇摆。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+  </footer>
+<div>
+    <div class="pagination__title">
+        <span class="pagination__title-h" style="font-size: 20px;">💬评论</span>
+        <hr />
+    </div>
+    <div id="tcomment"></div>
+    <script src="https://cdn.staticfile.org/twikoo/1.5.11/twikoo.all.min.js"></script>
+    <script>
+        twikoo.init({
+            envId: "https://twikoo-comments-zeta.vercel.app/",  
+            el: "#tcomment",
+            lang: 'zh-CN',
+            
+            path: window.TWIKOO_MAGIC_PATH||window.location.pathname,
+        });
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="http://chanfun.cc/">趁风</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
