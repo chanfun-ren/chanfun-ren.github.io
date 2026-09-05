@@ -4,11 +4,7 @@
     <title>Categories on 趁风</title>
     <link>https://chanfun.top/categories/</link>
     <description>Recent content in Categories on 趁风</description>
-    <image>
-      <url>https://chanfun.top/papermod-cover.png</url>
-      <link>https://chanfun.top/papermod-cover.png</link>
-    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://chanfun.top/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language><atom:link href="https://chanfun.top/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

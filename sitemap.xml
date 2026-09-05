@@ -5,10 +5,10 @@
     <loc>https://chanfun.top/post/</loc>
     <lastmod>2023-02-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://chanfun.top/post/lifetime/</loc>
+    <loc>https://chanfun.top/</loc>
     <lastmod>2023-02-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://chanfun.top/</loc>
+    <loc>https://chanfun.top/post/lifetime/</loc>
     <lastmod>2023-02-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://chanfun.top/post/embrace_complexity/</loc>
@@ -26,11 +26,29 @@
     <loc>https://chanfun.top/post/when_national_day/</loc>
     <lastmod>2022-10-01T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://chanfun.top/post/atomic/</loc>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://chanfun.top/post/lsm_tutorial/</loc>
+    <lastmod>2022-09-15T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://chanfun.top/post/2022_summer_vacation/</loc>
     <lastmod>2022-09-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://chanfun.top/post/graduation_day/</loc>
     <lastmod>2022-06-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://chanfun.top/post/graduation_defense_day/</loc>
+    <lastmod>2022-05-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://chanfun.top/post/busy_days/</loc>
+    <lastmod>2022-04-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://chanfun.top/post/auto_generated_func/</loc>
+    <lastmod>2022-03-16T01:37:35+08:00</lastmod>
+  </url><url>
+    <loc>https://chanfun.top/post/first/</loc>
+    <lastmod>2022-03-14T19:23:16+08:00</lastmod>
   </url><url>
     <loc>https://chanfun.top/tags/</loc>
     <lastmod>2021-11-29T00:00:00+00:00</lastmod>
@@ -56,8 +74,10 @@
     <loc>https://chanfun.top/post/2019_10_08/</loc>
     <lastmod>2019-10-08T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://chanfun.top/archives/</loc>
+  </url><url>
     <loc>https://chanfun.top/about/</loc>
   </url><url>
-    <loc>https://chanfun.top/archives/</loc>
+    <loc>https://chanfun.top/categories/</loc>
   </url>
 </urlset>
