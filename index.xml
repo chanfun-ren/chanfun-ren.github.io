@@ -475,21 +475,6 @@
     </item>
     
     <item>
-      <title></title>
-      <link>https://chanfun.top/archives/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://chanfun.top/archives/</guid>
-      <description>&lt;h1 id=&#34;archives-页-hugo-papermod&#34;&gt;Archives 页 (Hugo PaperMod)&lt;/h1&gt;
-&lt;p&gt;+++
-title = &amp;ldquo;Archives&amp;rdquo;
-layout = &amp;ldquo;archives&amp;rdquo;
-url = &amp;ldquo;/archives&amp;rdquo;
-summary = &amp;ldquo;archives&amp;rdquo;
-+++&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>About</title>
       <link>https://chanfun.top/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -501,6 +486,7 @@ summary = &amp;ldquo;archives&amp;rdquo;
 &lt;p&gt;2023.02.21&lt;/p&gt;
 &lt;p&gt;什么都可以往这里塞 👉 &lt;a href=&#34;mailto:chanfundotcc@gmail.com&#34;&gt;chanfundotcc@gmail.com&lt;/a&gt;&lt;/p&gt;</description>
     </item>
+    
     
   </channel>
 </rss>
